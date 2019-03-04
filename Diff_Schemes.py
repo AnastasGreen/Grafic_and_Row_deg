@@ -17,12 +17,13 @@ eps = 1e-3
 
 print('epsilon =', eps)
 
+
 h_x = 10
 h_t = 10
 
-I = int(l / h_x)
-K = int(T / h_t)
-j = (a * h_t / h_x) ** 2
+I = int(l/h_x)
+K = int(T/h_t)
+j = (a * h_t / h_x)**2
 
 V = np.zeros((K, I))
 
@@ -34,17 +35,18 @@ def psi(x):
     return 4 * x / l - (2 * x / l) ** 2
 
 
-V[0, :] = np.insert(psi, x)
-V[1, :] = np.vectorize(psi, x)
-
+V[0, :] = np.array(map(psi, x))
+V[1, :] = np.array(map(psi, x))
 
 # для численных вычислений
 def fun(K, I):
+
     for k in np.arange(1, K - 1):
         for i in np.arange(1, I - 1):
             V[k + 1, 0] = 0
             V[k + 1, I] = 0
-            V[k + 1, i] = 2 * (1 - j) * V[k, i] + j * (V[k, i + 1] + V[k, i - 1]) - V[k - 1, i]
+            V[k + 1, i] = 2*(1 - j) * V[k, i] + j * (V[k, i + 1] + V[k, i - 1]) - V[k - 1, i]
+
 
 
 if __name__ == "__main__":
