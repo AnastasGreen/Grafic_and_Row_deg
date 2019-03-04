@@ -27,18 +27,19 @@ j = (a * h_t / h_x)**2
 
 V = np.zeros((K, I))
 
-x = np.arange(0, l, I)
-t = np.arange(0, T, K)
+x = np.arange(0, l, h_x)
+t = np.arange(0, T, h_t)
 
 
 def psi(x):
     return 4 * x / l - (2 * x / l) ** 2
 
 
-V[0, :] = np.array(map(psi, x))
-V[1, :] = np.array(map(psi, x))
+V[0, :] = np.array(list(map(psi, x)))
+V[1, :] = np.array(list(map(psi, x)))
 
 # для численных вычислений
+
 def fun(K, I):
 
     for k in np.arange(1, K - 1):
