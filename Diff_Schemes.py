@@ -39,33 +39,29 @@ V[0, :] = np.array(list(map(psi, x)))
 V[1, :] = np.array(list(map(psi, x)))
 
 # для численных вычислений
-
-def fun(K, I):
-
-    for k in np.arange(1, K - 1):
-        for i in np.arange(1, I - 1):
-            V[k + 1, 0] = 0
-            V[k + 1, I] = 0
-            V[k + 1, i] = 2*(1 - j) * V[k, i] + j * (V[k, i + 1] + V[k, i - 1]) - V[k - 1, i]
-
+for k in np.arange(1, K - 1):
+    for i in np.arange(1, I - 1):
+        V[k + 1, 0] = 0
+        V[k + 1, I] = 0
+        V[k + 1, i] = 2 * (1 - j) * V[k, i] + j * (V[k, i + 1] + V[k, i - 1]) - V[k - 1, i]
 
 
 if __name__ == "__main__":
-    print(V)
 
-    # mini = min(V)
-    # maxi = max(V)
+    mini = min(V)
+    maxi = max(V)
+
     # вывод численных подсчетов
-    # ch_xrange = np.arange(0, l, I)
-    # for i in np.arange(0, len(t)):
-    #     ct = [fun(i, I) for i in ch_xrange]
-    #     plt.plot(ch_xrange, ct)
-    #     plt.ylim(mini, maxi)
-    #     plt.xlabel(u't')
-    #     plt.ylabel(u'u(x,t)')
-    #     plt.grid(True)
-    #     plt.savefig('test_t={}.png'.format(t))
-    #     plt.close()
+    ch_xrange = np.arange(0, l, I)
+    for i in np.arange(0, len(t)):
+        ct = [V[i, I] for i in ch_xrange]
+        plt.plot(ch_xrange, ct)
+        plt.ylim(mini, maxi)
+        plt.xlabel(u't')
+        plt.ylabel(u'u(x,t)')
+        plt.grid(True)
+        plt.savefig('test_t={}.png'.format(t))
+        plt.close()
     # =========================================
 
     # trange = np.arange(0, T, k)
